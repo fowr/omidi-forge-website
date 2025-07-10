@@ -5,6 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import TunnelOven from "./pages/products/TunnelOven";
+import CupcakeDepositor from "./pages/products/CupcakeDepositor";
+import LayerCakeMachine from "./pages/products/LayerCakeMachine";
+import CookieDepositor from "./pages/products/CookieDepositor";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +20,10 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/products/tunnel-oven" element={<TunnelOven />} />
+          <Route path="/products/cupcake-depositor" element={<CupcakeDepositor />} />
+          <Route path="/products/layer-cake-machine" element={<LayerCakeMachine />} />
+          <Route path="/products/cookie-depositor" element={<CookieDepositor />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

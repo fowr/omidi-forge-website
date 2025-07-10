@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/components/ThemeProvider";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { theme, setTheme } = useTheme();
 
   const navItems = [
     { href: "/", label: "Home" },
@@ -45,6 +47,14 @@ const Navigation = () => {
                 {item.label}
               </Link>
             ))}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              className="text-foreground"
+            >
+              {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+            </Button>
             <Button size="sm" className="bg-gradient-primary hover:shadow-glow">
               Get Quote
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -83,7 +93,16 @@ const Navigation = () => {
                   {item.label}
                 </Link>
               ))}
-              <div className="px-3 py-2">
+              <div className="px-3 py-2 space-y-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                  className="w-full justify-start text-foreground"
+                >
+                  {theme === "light" ? <Moon className="h-4 w-4 mr-2" /> : <Sun className="h-4 w-4 mr-2" />}
+                  {theme === "light" ? "Dark Mode" : "Light Mode"}
+                </Button>
                 <Button size="sm" className="w-full bg-gradient-primary">
                   Get Quote
                   <ArrowRight className="ml-2 h-4 w-4" />

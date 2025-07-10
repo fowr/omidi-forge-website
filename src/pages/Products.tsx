@@ -16,37 +16,37 @@ const products = [
   {
     id: "tunnel-oven",
     title: "Tunnel Oven",
-    description: "Industrial continuous baking oven for high-volume production with precise temperature control and energy efficiency.",
+    description: "Various types of tunnel ovens for continuous baking operations with precise temperature control and energy efficiency.",
     image: tunnelOvenImage,
     category: "Baking Equipment",
-    features: ["Continuous Operation", "Energy Efficient", "Precise Temperature Control"],
+    features: ["Continuous Operation", "Energy Efficient", "Digital Controls"],
     route: "/products/tunnel-oven"
   },
   {
     id: "cupcake-depositor",
-    title: "Cupcake Depositor",
-    description: "Automated cupcake batter depositor with programmable portion control and consistent filling accuracy.",
+    title: "Cupcake Production Line",
+    description: "Complete production lines for cupcakes, pie cakes, and fun cakes with automated depositing and baking systems.",
     image: cupcakeDepositorImage,
-    category: "Depositing Equipment",
-    features: ["Programmable Portions", "High Accuracy", "Easy Cleaning"],
+    category: "Complete Production Lines",
+    features: ["Complete Line", "Automated", "High Capacity"],
     route: "/products/cupcake-depositor"
   },
   {
     id: "layer-cake-machine",
-    title: "Layer Cake Machine",
-    description: "Advanced layer cake production system with automated batter spreading and precise layer thickness control.",
+    title: "Layer Cake & Swiss Roll Line",
+    description: "Complete production lines for layer cakes and Swiss rolls with automatic layering and cream distribution systems.",
     image: layerCakeMachineImage,
-    category: "Cake Production",
-    features: ["Layer Precision", "Automated Operation", "Scalable Production"],
+    category: "Complete Production Lines",
+    features: ["Multi-Layer", "Swiss Roll", "Automated Cream Distribution"],
     route: "/products/layer-cake-machine"
   },
   {
     id: "cookie-depositor",
-    title: "Cookie Depositor",
-    description: "High-speed cookie depositor with multiple nozzle configurations for various cookie shapes and sizes.",
+    title: "Cookie Production Line",
+    description: "Complete production lines for various types of filled cookies with precision depositing and consistent quality control.",
     image: cookieDepositorImage,
-    category: "Depositing Equipment",
-    features: ["Multiple Nozzles", "High Speed", "Shape Variety"],
+    category: "Complete Production Lines",
+    features: ["Filled Cookies", "Consistent Quality", "Various Types"],
     route: "/products/cookie-depositor"
   }
 ];

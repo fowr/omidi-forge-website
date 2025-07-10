@@ -13,34 +13,34 @@ const Products = () => {
     {
       id: "tunnel-oven",
       name: "Tunnel Oven",
-      description: "High-capacity continuous baking system with precision temperature control and energy-efficient design.",
+      description: "Various types of tunnel ovens for continuous baking operations with precise temperature control and energy efficiency.",
       image: tunnelOvenImage,
       features: ["Continuous Operation", "Energy Efficient", "Digital Controls"],
       badges: ["Best Seller", "Industrial Grade"]
     },
     {
       id: "cupcake-depositor",
-      name: "Cupcake Depositor",
-      description: "Automated cupcake batter depositing system with adjustable portion control and high-speed operation.",
+      name: "Cupcake Production Line",
+      description: "Complete production lines for cupcakes, pie cakes, and fun cakes with automated depositing and baking systems.",
       image: cupcakeDepositorImage,
-      features: ["Precise Portioning", "High Speed", "Easy Cleaning"],
-      badges: ["Popular", "Automated"]
+      features: ["Complete Line", "Automated", "High Capacity"],
+      badges: ["Popular", "Full Production"]
     },
     {
       id: "layer-cake-machine",
-      name: "Layer Cake Machine",
-      description: "Advanced multi-layer cake production system with automatic layering and cream distribution.",
+      name: "Layer Cake & Swiss Roll Line",
+      description: "Complete production lines for layer cakes and Swiss rolls with automatic layering and cream distribution systems.",
       image: layerCakeMachineImage,
-      features: ["Multi-Layer", "Automated", "Consistent Quality"],
+      features: ["Multi-Layer", "Swiss Roll", "Automated Cream Distribution"],
       badges: ["Professional", "High Output"]
     },
     {
       id: "cookie-depositor",
-      name: "Cookie Depositor",
-      description: "Precision cookie dough depositing machine with customizable shapes and consistent portion control.",
+      name: "Cookie Production Line",
+      description: "Complete production lines for various types of filled cookies with precision depositing and consistent quality control.",
       image: cookieDepositorImage,
-      features: ["Shape Variety", "Consistent Portions", "Quick Setup"],
-      badges: ["Versatile", "User Friendly"]
+      features: ["Filled Cookies", "Consistent Quality", "Various Types"],
+      badges: ["Versatile", "Complete Solution"]
     }
   ];
 
@@ -124,13 +124,15 @@ const Products = () => {
         </div>
 
         <div className="text-center">
-          <Button 
-            size="lg" 
-            className="bg-gradient-primary hover:shadow-glow text-lg px-8 py-6 group"
-          >
-            View All Products
-            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          <Link to="/products">
+            <Button 
+              size="lg" 
+              className="bg-gradient-primary hover:shadow-glow text-lg px-8 py-6 group"
+            >
+              View All Products
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

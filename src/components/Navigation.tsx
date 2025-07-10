@@ -56,7 +56,7 @@ const Navigation = () => {
               {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
             </Button>
             <Button size="sm" className="bg-gradient-primary hover:shadow-glow">
-              Get Quote
+              Download Catalog
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
@@ -104,7 +104,7 @@ const Navigation = () => {
                   {theme === "light" ? "Dark Mode" : "Light Mode"}
                 </Button>
                 <Button size="sm" className="w-full bg-gradient-primary">
-                  Get Quote
+                  Download Catalog
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>

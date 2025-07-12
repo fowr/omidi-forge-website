@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import TunnelOven from "./pages/products/TunnelOven";
 import CupcakeDepositor from "./pages/products/CupcakeDepositor";
@@ -24,6 +25,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/about" element={<About />} />
             <Route path="/products/tunnel-oven" element={<TunnelOven />} />
             <Route path="/products/cupcake-depositor" element={<CupcakeDepositor />} />
             <Route path="/products/layer-cake-machine" element={<LayerCakeMachine />} />

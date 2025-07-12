@@ -1,8 +1,9 @@
-import { ArrowLeft, Download, Mail, Phone, Zap, Thermometer, Timer, Gauge } from "lucide-react";
+import { ArrowLeft, Download, Mail, Phone, Zap, Thermometer, Timer, Gauge, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -38,6 +39,29 @@ const TunnelOven = () => {
     "Pastries and croissants",
     "Cake and muffin production",
     "Flatbreads and tortillas"
+  ];
+
+  const machineGallery = [
+    {
+      image: tunnelOvenImage,
+      title: "Tunnel Oven - Full Production Line",
+      description: "Complete industrial tunnel oven with multi-zone temperature control"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop",
+      title: "Temperature Control System",
+      description: "Advanced digital control panels for precise temperature management"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=600&fit=crop",
+      title: "Conveyor Belt System",
+      description: "High-quality stainless steel conveyor with variable speed control"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop",
+      title: "Heat Recovery Unit",
+      description: "Energy-efficient heat recovery system for reduced operating costs"
+    }
   ];
 
   return (
@@ -144,8 +168,85 @@ const TunnelOven = () => {
           </div>
         </section>
 
-        {/* Features & Applications */}
+        {/* Video Section */}
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-foreground mb-4">
+                Industrial Baking Excellence
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Experience the power and precision of our tunnel oven in full production
+              </p>
+            </div>
+            
+            <div className="relative max-w-4xl mx-auto">
+              <div className="relative aspect-video bg-muted/30 rounded-lg overflow-hidden group cursor-pointer">
+                <img 
+                  src={tunnelOvenImage}
+                  alt="Tunnel Oven Video Preview"
+                  className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors">
+                  <div className="bg-primary/90 rounded-full p-6 group-hover:bg-primary transition-colors">
+                    <Play className="h-12 w-12 text-primary-foreground ml-1" fill="currentColor" />
+                  </div>
+                </div>
+                <div className="absolute bottom-4 left-4 text-white">
+                  <h3 className="text-xl font-semibold mb-1">Tunnel Oven Production Line</h3>
+                  <p className="text-sm opacity-90">7:45 minutes • Full operation demo</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Machine Gallery */}
         <section className="py-16 bg-muted/30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-foreground mb-4">
+                Machine Gallery
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Explore the components and features of our industrial tunnel oven
+              </p>
+            </div>
+            
+            <Carousel className="w-full max-w-5xl mx-auto">
+              <CarouselContent>
+                {machineGallery.map((item, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
+                    <Card className="bg-gradient-card border-border">
+                      <CardContent className="p-0">
+                        <div className="relative aspect-video overflow-hidden rounded-t-lg">
+                          <img 
+                            src={item.image}
+                            alt={item.title}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <div className="p-6">
+                          <h3 className="text-lg font-semibold text-foreground mb-2">
+                            {item.title}
+                          </h3>
+                          <p className="text-muted-foreground">
+                            {item.description}
+                          </p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
+          </div>
+        </section>
+
+        {/* Features & Applications */}
+        <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Features */}

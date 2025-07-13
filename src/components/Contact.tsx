@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Send, Clock, Headphones } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Clock, Headphones, Youtube, Instagram, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 const Contact = () => {
   return (
-    <section className="py-24 bg-background">
+    <section id="contact" className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -71,6 +71,37 @@ const Contact = () => {
                 <p className="text-sm text-muted-foreground">By appointment only</p>
               </CardContent>
             </Card>
+
+            {/* Social Media */}
+            <div className="space-y-4 pt-6">
+              <h3 className="font-semibold text-foreground">Follow Us</h3>
+              <div className="flex space-x-4">
+                <a 
+                  href="https://www.youtube.com/@OMIDI.Machinery" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-2 bg-gradient-card rounded-lg border-border hover:shadow-glow transition-smooth"
+                >
+                  <Youtube className="h-5 w-5 text-primary" />
+                </a>
+                <a 
+                  href="https://instagram.com/omidi.machinery" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-2 bg-gradient-card rounded-lg border-border hover:shadow-glow transition-smooth"
+                >
+                  <Instagram className="h-5 w-5 text-primary" />
+                </a>
+                <a 
+                  href="https://wa.me/989111438779" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-2 bg-gradient-card rounded-lg border-border hover:shadow-glow transition-smooth"
+                >
+                  <MessageCircle className="h-5 w-5 text-primary" />
+                </a>
+              </div>
+            </div>
 
             {/* Additional Services */}
             <div className="space-y-4 pt-6">

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight, Youtube, Instagram, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
@@ -40,11 +40,23 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link 
-                  to="/contact" 
+                <a 
+                  href="#contact" 
                   className="text-muted-foreground hover:text-primary transition-smooth"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                 >
                   Contact
+                </a>
+              </li>
+              <li>
+                <Link 
+                  to="/news" 
+                  className="text-muted-foreground hover:text-primary transition-smooth"
+                >
+                  News
                 </Link>
               </li>
               <li>
@@ -115,6 +127,32 @@ const Footer = () => {
                   Industrial District<br />
                   Manufacturing Hub, US
                 </span>
+              </div>
+              <div className="flex space-x-3 mt-4">
+                <a 
+                  href="https://www.youtube.com/@OMIDI.Machinery" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-2 bg-secondary rounded-lg hover:bg-secondary/80 transition-smooth"
+                >
+                  <Youtube className="h-4 w-4 text-primary" />
+                </a>
+                <a 
+                  href="https://instagram.com/omidi.machinery" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-2 bg-secondary rounded-lg hover:bg-secondary/80 transition-smooth"
+                >
+                  <Instagram className="h-4 w-4 text-primary" />
+                </a>
+                <a 
+                  href="https://wa.me/989111438779" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-2 bg-secondary rounded-lg hover:bg-secondary/80 transition-smooth"
+                >
+                  <MessageCircle className="h-4 w-4 text-primary" />
+                </a>
               </div>
             </div>
           </div>

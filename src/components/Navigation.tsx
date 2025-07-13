@@ -14,7 +14,8 @@ const Navigation = () => {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/products", label: "Products" },
-    { href: "/contact", label: "Contact" }
+    { href: "/news", label: "News" },
+    { href: "#contact", label: "Contact", isScroll: true }
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -34,18 +35,32 @@ const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={cn(
-                  "text-sm font-medium transition-smooth hover:text-primary",
-                  isActive(item.href) 
-                    ? "text-primary" 
-                    : "text-muted-foreground"
-                )}
-              >
-                {item.label}
-              </Link>
+              item.isScroll ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="text-sm font-medium transition-smooth hover:text-primary text-muted-foreground"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className={cn(
+                    "text-sm font-medium transition-smooth hover:text-primary",
+                    isActive(item.href) 
+                      ? "text-primary" 
+                      : "text-muted-foreground"
+                  )}
+                >
+                  {item.label}
+                </Link>
+              )
             ))}
             <Button
               variant="ghost"
@@ -79,19 +94,34 @@ const Navigation = () => {
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-card border border-border rounded-lg mt-2 shadow-card">
               {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={cn(
-                    "block px-3 py-2 text-base font-medium rounded-md transition-smooth",
-                    isActive(item.href)
-                      ? "text-primary bg-secondary"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                  )}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </Link>
+                item.isScroll ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                      setIsOpen(false);
+                    }}
+                    className="block px-3 py-2 text-base font-medium rounded-md transition-smooth text-muted-foreground hover:text-foreground hover:bg-secondary"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className={cn(
+                      "block px-3 py-2 text-base font-medium rounded-md transition-smooth",
+                      isActive(item.href)
+                        ? "text-primary bg-secondary"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                    )}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                )
               ))}
               <div className="px-3 py-2 space-y-2">
                 <Button

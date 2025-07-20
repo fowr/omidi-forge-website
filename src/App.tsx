@@ -13,6 +13,7 @@ import TunnelOven from "./pages/products/TunnelOven";
 import CupcakeDepositor from "./pages/products/CupcakeDepositor";
 import LayerCakeMachine from "./pages/products/LayerCakeMachine";
 import CookieDepositor from "./pages/products/CookieDepositor";
+import NewsDetail from "./pages/news/NewsDetail";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/products/cupcake-depositor" element={<CupcakeDepositor />} />
             <Route path="/products/layer-cake-machine" element={<LayerCakeMachine />} />
             <Route path="/products/cookie-depositor" element={<CookieDepositor />} />
+            <Route path="/news/:id" element={<NewsDetail />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

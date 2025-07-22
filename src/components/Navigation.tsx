@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { Menu, X, ArrowRight, Sun, Moon } from "lucide-react";
+import { Menu, X, ArrowRight, Sun, Moon, LogIn, LogOut, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/ThemeProvider";
+import { useAuth } from "@/hooks/useAuth";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { theme, setTheme } = useTheme();
+  const { user, isAdmin, signOut } = useAuth();
 
   const navItems = [
     { href: "/", label: "Home" },
@@ -70,6 +72,32 @@ const Navigation = () => {
             >
               {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
             </Button>
+            
+            {/* Auth buttons */}
+            {user ? (
+              <div className="flex items-center gap-2">
+                {isAdmin && (
+                  <Button variant="outline" size="sm" asChild>
+                    <Link to="/admin">
+                      <Shield className="h-4 w-4 mr-2" />
+                      Admin
+                    </Link>
+                  </Button>
+                )}
+                <Button variant="outline" size="sm" onClick={signOut}>
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/auth">
+                  <LogIn className="h-4 w-4 mr-2" />
+                  Sign In
+                </Link>
+              </Button>
+            )}
+            
             <Button size="sm" className="bg-gradient-primary hover:shadow-glow">
               Download Catalog
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -133,6 +161,32 @@ const Navigation = () => {
                   {theme === "light" ? <Moon className="h-4 w-4 mr-2" /> : <Sun className="h-4 w-4 mr-2" />}
                   {theme === "light" ? "Dark Mode" : "Light Mode"}
                 </Button>
+                
+                {/* Mobile Auth buttons */}
+                {user ? (
+                  <>
+                    {isAdmin && (
+                      <Button variant="outline" size="sm" className="w-full justify-start" asChild>
+                        <Link to="/admin">
+                          <Shield className="h-4 w-4 mr-2" />
+                          Admin Panel
+                        </Link>
+                      </Button>
+                    )}
+                    <Button variant="outline" size="sm" className="w-full justify-start" onClick={signOut}>
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <Button variant="outline" size="sm" className="w-full justify-start" asChild>
+                    <Link to="/auth">
+                      <LogIn className="h-4 w-4 mr-2" />
+                      Sign In
+                    </Link>
+                  </Button>
+                )}
+                
                 <Button size="sm" className="w-full bg-gradient-primary">
                   Download Catalog
                   <ArrowRight className="ml-2 h-4 w-4" />

@@ -5,53 +5,34 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-
-// Import product images
-import tunnelOvenImage from "@/assets/tunnel-oven-hero.jpg";
-import cupcakeDepositorImage from "@/assets/cupcake-depositor.jpg";
-import layerCakeMachineImage from "@/assets/layer-cake-machine.jpg";
-import cookieDepositorImage from "@/assets/cookie-depositor.jpg";
-
-const products = [
-  {
-    id: "tunnel-oven",
-    title: "Tunnel Oven",
-    description: "Various types of tunnel ovens for continuous baking operations with precise temperature control and energy efficiency.",
-    image: tunnelOvenImage,
-    category: "Baking Equipment",
-    features: ["Continuous Operation", "Energy Efficient", "Digital Controls"],
-    route: "/products/tunnel-oven"
-  },
-  {
-    id: "cupcake-depositor",
-    title: "Cupcake Production Line",
-    description: "Complete production lines for cupcakes, pie cakes, and fun cakes with automated depositing and baking systems.",
-    image: cupcakeDepositorImage,
-    category: "Complete Production Lines",
-    features: ["Complete Line", "Automated", "High Capacity"],
-    route: "/products/cupcake-depositor"
-  },
-  {
-    id: "layer-cake-machine",
-    title: "Layer Cake & Swiss Roll Line",
-    description: "Complete production lines for layer cakes and Swiss rolls with automatic layering and cream distribution systems.",
-    image: layerCakeMachineImage,
-    category: "Complete Production Lines",
-    features: ["Multi-Layer", "Swiss Roll", "Automated Cream Distribution"],
-    route: "/products/layer-cake-machine"
-  },
-  {
-    id: "cookie-depositor",
-    title: "Cookie Production Line",
-    description: "Complete production lines for various types of filled cookies with precision depositing and consistent quality control.",
-    image: cookieDepositorImage,
-    category: "Complete Production Lines",
-    features: ["Filled Cookies", "Consistent Quality", "Various Types"],
-    route: "/products/cookie-depositor"
-  }
-];
+import { useProducts } from "@/hooks/useProducts";
 
 const Products = () => {
+  const { products, loading, error } = useProducts();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="pt-20 flex items-center justify-center min-h-screen">
+          <div className="text-lg text-muted-foreground">Loading products...</div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="pt-20 flex items-center justify-center min-h-screen">
+          <div className="text-lg text-destructive">Error loading products: {error}</div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -77,7 +58,7 @@ const Products = () => {
               <Card key={product.id} className="group bg-card border-border hover:shadow-elegant transition-smooth overflow-hidden">
                 <div className="aspect-video overflow-hidden">
                   <img
-                    src={product.image}
+                    src={product.image_url || '/placeholder.svg'}
                     alt={product.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-smooth"
                   />
@@ -98,7 +79,7 @@ const Products = () => {
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex flex-wrap gap-2">
-                      {product.features.map((feature, index) => (
+                      {product.features && Array.isArray(product.features) && (product.features as string[]).map((feature, index) => (
                         <Badge key={index} variant="outline" className="text-xs">
                           {feature}
                         </Badge>
@@ -107,7 +88,7 @@ const Products = () => {
                     
                     <div className="flex gap-3">
                       <Button asChild className="bg-gradient-primary hover:shadow-glow flex-1">
-                        <Link to={product.route}>
+                        <Link to={product.route || `/products/${product.id}`}>
                           <Eye className="w-4 h-4 mr-2" />
                           View Details
                         </Link>

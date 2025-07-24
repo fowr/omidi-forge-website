@@ -1,20 +1,8 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import type { Database } from '@/integrations/supabase/types';
 
-interface Product {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  image_url: string | null;
-  route: string;
-  specifications: any;
-  features: any;
-  metadata: any;
-  published: boolean;
-  created_at: string;
-  updated_at: string;
-}
+type Product = Database['public']['Tables']['products']['Row'];
 
 export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -31,7 +19,7 @@ export const useProducts = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setProducts(data as Product[] || []);
+      setProducts(data || []);
       setError(null);
     } catch (err: any) {
       setError(err.message);

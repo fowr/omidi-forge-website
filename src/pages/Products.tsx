@@ -88,7 +88,7 @@ const Products = () => {
                     
                     <div className="flex gap-3">
                       <Button asChild className="bg-gradient-primary hover:shadow-glow flex-1">
-                        <Link to={product.route || `/products/${product.id}`}>
+                        <Link to={`/products/${product.id}`}>
                           <Eye className="w-4 h-4 mr-2" />
                           View Details
                         </Link>

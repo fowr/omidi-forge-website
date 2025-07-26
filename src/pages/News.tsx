@@ -102,7 +102,7 @@ const News = () => {
                         </a>
                       )}
                       <Link 
-                        to={`/news/${item.slug || item.id}`}
+                        to={`/news/${item.id}`}
                         className="flex items-center space-x-1 text-primary hover:text-primary/80 transition-smooth text-sm"
                       >
                         <ExternalLink className="h-4 w-4" />

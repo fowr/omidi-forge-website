@@ -17,6 +17,8 @@ import CupcakeDepositor from "./pages/products/CupcakeDepositor";
 import LayerCakeMachine from "./pages/products/LayerCakeMachine";
 import CookieDepositor from "./pages/products/CookieDepositor";
 import NewsDetail from "./pages/news/NewsDetail";
+import ProductDetail from "./pages/ProductDetail";
+import NewsDetailDynamic from "./pages/NewsDetailDynamic";
 
 const queryClient = new QueryClient();
 
@@ -35,11 +37,14 @@ const App = () => (
               <Route path="/news" element={<News />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/products/:id" element={<ProductDetail />} />
+              <Route path="/news/:id" element={<NewsDetailDynamic />} />
+              {/* Legacy static routes - keeping for compatibility */}
               <Route path="/products/tunnel-oven" element={<TunnelOven />} />
               <Route path="/products/cupcake-depositor" element={<CupcakeDepositor />} />
               <Route path="/products/layer-cake-machine" element={<LayerCakeMachine />} />
               <Route path="/products/cookie-depositor" element={<CookieDepositor />} />
-              <Route path="/news/:id" element={<NewsDetail />} />
+              <Route path="/news-legacy/:id" element={<NewsDetail />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

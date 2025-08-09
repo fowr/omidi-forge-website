@@ -1,3 +1,4 @@
+// hooks/useNewsItem.ts
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import type { Database } from '@/integrations/supabase/types';
@@ -9,31 +10,39 @@ export const useNewsItem = (id: string) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchNewsItem = async () => {
-    try {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('news')
-        .select('*')
-        .eq('id', id)
-        .single();
-
-      if (error) throw error;
-      setNewsItem(data);
-      setError(null);
-    } catch (err: any) {
-      setError(err.message);
-      setNewsItem(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    if (id) {
-      fetchNewsItem();
+    if (!id) {
+      setLoading(false);
+      return;
     }
+
+    const fetchNewsItem = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const { data, error: supabaseError } = await supabase
+          .from('news')
+          .select('*')
+          .eq('id', id)
+          .eq('is_published', true)
+          .single();
+
+        if (supabaseError) {
+          throw supabaseError;
+        }
+
+        setNewsItem(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch news item');
+        console.error('Error fetching news item:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNewsItem();
   }, [id]);
 
-  return { newsItem, loading, error, refetch: fetchNewsItem };
+  return { newsItem, loading, error };
 };

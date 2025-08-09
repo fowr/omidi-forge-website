@@ -1,74 +1,62 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/hooks/useAuth';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-import AdminProducts from '@/components/admin/AdminProducts';
-import AdminNews from '@/components/admin/AdminNews';
-import AdminUsers from '@/components/admin/AdminUsers';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useRole } from '@/hooks/useRole';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import { AdminUserSetup } from '@/components/admin/AdminUserSetup';
 
-const Admin = () => {
-  const { user, isAdmin, loading } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!loading && (!user || !isAdmin)) {
-      navigate('/auth');
-    }
-  }, [user, isAdmin, loading, navigate]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-hero flex items-center justify-center">
-        <div className="text-primary">Loading...</div>
-      </div>
-    );
-  }
-
-  if (!user || !isAdmin) {
-    return null;
-  }
+const Index = () => {
+  const { user, signOut } = useAuth();
+  const { isAdmin } = useRole();
 
   return (
-    <div className="min-h-screen bg-gradient-hero">
-      <Navigation />
-      <main className="container mx-auto px-4 py-8">
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="text-3xl font-bold">Admin Dashboard</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">
-              Welcome to the admin panel. Here you can manage products, news articles, and user roles.
-            </p>
-          </CardContent>
-        </Card>
-
-        <Tabs defaultValue="products" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="products">Products</TabsTrigger>
-            <TabsTrigger value="news">News</TabsTrigger>
-            <TabsTrigger value="users">Users</TabsTrigger>
-          </TabsList>
+    <>
+      {/* Show admin setup component - it handles its own visibility logic */}
+      <AdminUserSetup />
+      
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center space-y-6">
+          <h1 className="text-4xl font-bold mb-4">Welcome to Your App</h1>
           
-          <TabsContent value="products">
-            <AdminProducts />
-          </TabsContent>
-          
-          <TabsContent value="news">
-            <AdminNews />
-          </TabsContent>
-          
-          <TabsContent value="users">
-            <AdminUsers />
-          </TabsContent>
-        </Tabs>
-      </main>
-      <Footer />
-    </div>
+          {user ? (
+            <div className="space-y-4">
+              <p className="text-xl text-muted-foreground">
+                Hello, {user.email}! You're successfully authenticated.
+              </p>
+              <div className="space-y-2">
+                <p className="text-sm text-muted-foreground">
+                  Authentication Status: ✅ Secure
+                </p>
+                <div className="flex gap-2">
+                  {isAdmin && (
+                    <Button asChild>
+                      <Link to="/dashboard">Go to Admin Panel</Link>
+                    </Button>
+                  )}
+                  <Button onClick={signOut} variant="outline">
+                    Sign Out
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <p className="text-xl text-muted-foreground">
+                Start building your amazing project here!
+              </p>
+              <div className="space-y-2">
+                <p className="text-sm text-muted-foreground">
+                  Authentication Status: ⚠️ Not authenticated
+                </p>
+                <Button asChild>
+                  <Link to="/auth">Sign In / Sign Up</Link>
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </>
   );
 };
 
-export default Admin;
+export default Index;

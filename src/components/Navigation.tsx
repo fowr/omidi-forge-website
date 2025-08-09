@@ -15,9 +15,10 @@ const Navigation = () => {
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/products", label: "Products" },
+    { href: "/products", label: "Production Lines" },
+    { href: "/components", label: "Machineries" },
     { href: "/news", label: "News" },
-    { href: "#contact", label: "Contact", isScroll: true }
+    { href: "/", label: "Contact", isScroll: true }
   ];
 
   const isActive = (path: string) => location.pathname === path;

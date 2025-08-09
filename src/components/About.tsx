@@ -34,7 +34,7 @@ const About = () => {
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             Established in 1988, Omidi Machinery Industries has grown to serve 800 manufacturing units across the country 
-            and export machinery and production lines to over 53 countries worldwide. We specialize in designing and manufacturing 
+            and export machinery and production lines to over 68 countries worldwide. We specialize in designing and manufacturing 
             machinery for the food industry, including fully and semi-automatic production lines.
           </p>
         </div>
@@ -124,7 +124,7 @@ const About = () => {
                 <div className="text-sm text-muted-foreground">Manufacturing Units</div>
               </div>
               <div className="text-center p-6 bg-background/50 rounded-lg border border-border">
-                <div className="text-3xl font-bold text-primary mb-2">53+</div>
+                <div className="text-3xl font-bold text-primary mb-2">68+</div>
                 <div className="text-sm text-muted-foreground">Countries</div>
               </div>
               <div className="text-center p-6 bg-background/50 rounded-lg border border-border">

@@ -1,214 +1,196 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { useAuth } from '@/hooks/useAuth';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-
-interface SignInFormData {
-  email: string;
-  password: string;
-}
-
-interface SignUpFormData {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  displayName: string;
-}
+import { useToast } from '@/hooks/use-toast';
+import { Loader2 } from 'lucide-react';
 
 const Auth = () => {
-  const [activeTab, setActiveTab] = useState('signin');
-  const { user, signIn, signUp, loading } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { signIn, signUp, loading } = useAuth();
+  const { toast } = useToast();
   const navigate = useNavigate();
 
-  const signInForm = useForm<SignInFormData>();
-  const signUpForm = useForm<SignUpFormData>();
-
-  useEffect(() => {
-    if (user && !loading) {
-      navigate('/');
-    }
-  }, [user, loading, navigate]);
-
-  const handleSignIn = async (data: SignInFormData) => {
-    const { error } = await signIn(data.email, data.password);
-    if (!error) {
-      navigate('/');
-    }
-  };
-
-  const handleSignUp = async (data: SignUpFormData) => {
-    if (data.password !== data.confirmPassword) {
-      signUpForm.setError('confirmPassword', {
-        message: 'Passwords do not match'
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive",
       });
       return;
     }
 
-    const { error } = await signUp(data.email, data.password, data.displayName);
-    if (!error) {
-      setActiveTab('signin');
+    setIsLoading(true);
+    const { error } = await signIn(email, password);
+    
+    if (error) {
+      toast({
+        title: "Sign In Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Success",
+        description: "Signed in successfully!",
+      });
+      navigate('/');
     }
+    setIsLoading(false);
+  };
+
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (password.length < 6) {
+      toast({
+        title: "Error",
+        description: "Password must be at least 6 characters long",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    const { error } = await signUp(email, password);
+    
+    if (error) {
+      if (error.message.includes('already registered')) {
+        toast({
+          title: "Account Exists",
+          description: "This email is already registered. Please sign in instead.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Sign Up Error",
+          description: error.message,
+          variant: "destructive",
+        });
+      }
+    } else {
+      toast({
+        title: "Success",
+        description: "Account created successfully! Please check your email to confirm your account.",
+      });
+      navigate('/');
+    }
+    setIsLoading(false);
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-hero flex items-center justify-center">
-        <div className="text-primary">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="h-8 w-8 animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-hero">
-      <Navigation />
-      <main className="container mx-auto px-4 py-8 flex items-center justify-center min-h-[calc(100vh-200px)]">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle>Welcome</CardTitle>
-            <CardDescription>
-              Sign in to your account or create a new one to access admin features.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="signin">Sign In</TabsTrigger>
-                <TabsTrigger value="signup">Sign Up</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="signin">
-                <Form {...signInForm}>
-                  <form onSubmit={signInForm.handleSubmit(handleSignIn)} className="space-y-4">
-                    <FormField
-                      control={signInForm.control}
-                      name="email"
-                      rules={{ 
-                        required: 'Email is required',
-                        pattern: {
-                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                          message: 'Invalid email address'
-                        }
-                      }}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter your email" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={signInForm.control}
-                      name="password"
-                      rules={{ required: 'Password is required' }}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Password</FormLabel>
-                          <FormControl>
-                            <Input type="password" placeholder="Enter your password" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="submit" className="w-full" disabled={signInForm.formState.isSubmitting}>
-                      {signInForm.formState.isSubmitting ? 'Signing in...' : 'Sign In'}
-                    </Button>
-                  </form>
-                </Form>
-              </TabsContent>
-              
-              <TabsContent value="signup">
-                <Form {...signUpForm}>
-                  <form onSubmit={signUpForm.handleSubmit(handleSignUp)} className="space-y-4">
-                    <FormField
-                      control={signUpForm.control}
-                      name="displayName"
-                      rules={{ required: 'Display name is required' }}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Display Name</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter your display name" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={signUpForm.control}
-                      name="email"
-                      rules={{ 
-                        required: 'Email is required',
-                        pattern: {
-                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                          message: 'Invalid email address'
-                        }
-                      }}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter your email" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={signUpForm.control}
-                      name="password"
-                      rules={{ 
-                        required: 'Password is required',
-                        minLength: {
-                          value: 6,
-                          message: 'Password must be at least 6 characters'
-                        }
-                      }}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Password</FormLabel>
-                          <FormControl>
-                            <Input type="password" placeholder="Enter your password" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={signUpForm.control}
-                      name="confirmPassword"
-                      rules={{ required: 'Please confirm your password' }}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Confirm Password</FormLabel>
-                          <FormControl>
-                            <Input type="password" placeholder="Confirm your password" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="submit" className="w-full" disabled={signUpForm.formState.isSubmitting}>
-                      {signUpForm.formState.isSubmitting ? 'Creating account...' : 'Sign Up'}
-                    </Button>
-                  </form>
-                </Form>
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
-      </main>
-      <Footer />
+    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+      <Card className="w-full max-w-md">
+        <CardHeader className="text-center">
+          <CardTitle className="text-2xl">Welcome</CardTitle>
+          <CardDescription>
+            Sign in to your account or create a new one
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Tabs defaultValue="signin" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="signin">Sign In</TabsTrigger>
+              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="signin">
+              <form onSubmit={handleSignIn} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="signin-email">Email</Label>
+                  <Input
+                    id="signin-email"
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="signin-password">Password</Label>
+                  <Input
+                    id="signin-password"
+                    type="password"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <Button 
+                  type="submit" 
+                  className="w-full"
+                  disabled={isLoading}
+                >
+                  {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  Sign In
+                </Button>
+              </form>
+            </TabsContent>
+            
+            <TabsContent value="signup">
+              <form onSubmit={handleSignUp} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="signup-email">Email</Label>
+                  <Input
+                    id="signup-email"
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="signup-password">Password</Label>
+                  <Input
+                    id="signup-password"
+                    type="password"
+                    placeholder="Create a password (min 6 characters)"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    minLength={6}
+                  />
+                </div>
+                <Button 
+                  type="submit" 
+                  className="w-full"
+                  disabled={isLoading}
+                >
+                  {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  Create Account
+                </Button>
+              </form>
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+      </Card>
     </div>
   );
 };

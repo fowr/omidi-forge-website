@@ -12,7 +12,7 @@ const Index = () => {
       <main>
         <Hero />
         <About />
-        <Products />
+        <Products limit={6} showHeader={true} showCTA={true} />
         <Contact />
       </main>
       <Footer />

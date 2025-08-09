@@ -32,8 +32,8 @@ const Contact = () => {
                 <p className="text-muted-foreground mb-2">
                   Speak directly with our technical experts
                 </p>
-                <p className="text-lg font-semibold text-foreground">+1 (555) 123-4567</p>
-                <p className="text-sm text-muted-foreground">Mon-Fri: 8AM-6PM EST</p>
+                <p className="text-lg font-semibold text-foreground">+98 911 143 8779</p>
+                <p className="text-sm text-muted-foreground">Sat-Thu: 9AM-6PM EST</p>
               </CardContent>
             </Card>
 
@@ -65,8 +65,8 @@ const Contact = () => {
                   See our equipment in action
                 </p>
                 <p className="text-sm text-foreground">
-                  Industrial District<br />
-                  Manufacturing Hub, US 12345
+                  3rd KM of Langroud<br />
+                  Lahijan , OMIDI Industrial Machinery
                 </p>
                 <p className="text-sm text-muted-foreground">By appointment only</p>
               </CardContent>

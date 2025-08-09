@@ -1,8 +1,32 @@
-import { Award, Globe, MapPin, Play, Shield, Users, Zap } from "lucide-react";
+import { Award, MapPin, Play, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import farhadImg from "@/assets/farhad.png";
+import shabnamImg from "@/assets/sh.png";
+import karenImg from "@/assets/karen.png";
+
+const managers = [
+  {
+    name: "Farhad J. Omidi",
+    title: "Founder & CEO",
+    description: "Mr. Farhad J. Omidi established Omidi Machinery in 1988, leading the company to become a pioneer in industrial food machinery manufacturing.",
+    image: farhadImg,
+  },
+  {
+    name: "Shabnam B. Omidi",
+    title: "Commercial Manager",
+    description: "Mrs. Shabnam B. Omidi oversees commercial operations, ensuring seamless client relations and business development.",
+    image: shabnamImg,
+  },
+  {
+    name: "Karen J. Omidi",
+    title: "Operations Manager",
+    description: "Mr. Karen J. Omidi, the next generation, manages operations and innovation, driving the company forward.",
+    image: karenImg, 
+  },
+];
 
 const About = () => {
   const awards = [
@@ -16,11 +40,12 @@ const About = () => {
   ];
 
   const exhibitions = [
-    "Anuga FoodTec (Germany)",
+    "Anuga FoodTec (India)",
     "Interpack (Germany)", 
     "GulfFood (Dubai)",
-    "Fispal (Brazil)",
-    "Food Ingredients (Asia)"
+    "F-Stanbul (Turkey)",
+    "Anutec (India)",
+    "Naan (Iran)"
   ];
 
   const productLines = [
@@ -96,7 +121,7 @@ const About = () => {
               </Card>
               <Card className="text-center p-6 bg-gradient-card">
                 <CardContent className="p-0">
-                  <div className="text-4xl font-bold text-primary mb-2">53+</div>
+                  <div className="text-4xl font-bold text-primary mb-2">68+</div>
                   <div className="text-muted-foreground">Countries</div>
                 </CardContent>
               </Card>
@@ -105,11 +130,39 @@ const About = () => {
         </div>
       </section>
 
+      {/* Company Leadership */}
+      <section className="py-16 bg-gradient-subtle">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-foreground mb-6"> Company Leadership</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Omidi Machinery is a family-owned business, led by a dedicated management team committed to excellence and innovation.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {managers.map((manager, idx) => (
+              <Card key={manager.name} className="p-6 bg-background/80 text-center">
+                <CardContent className="p-0 flex flex-col items-center">
+                  <img
+                    src={manager.image}
+                    alt={manager.name}
+                    className="w-28 h-28 rounded-full object-cover border-4 border-primary mb-4 bg-muted"
+                  />
+                  <h3 className="text-2xl font-semibold text-foreground mb-1">{manager.name}</h3>
+                  <span className="text-primary font-medium mb-2">{manager.title}</span>
+                  <p className="text-muted-foreground text-base">{manager.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Core Product Lines */}
       <section className="py-16 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-foreground mb-6">🎯 Core Product Lines</h2>
+            <h2 className="text-4xl font-bold text-foreground mb-6"> Core Product Lines</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Our expertise lies in the design and manufacturing of complete production systems for the food industry
             </p>
@@ -161,25 +214,28 @@ const About = () => {
       <section className="py-16 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-foreground mb-6">🎥 Factory Tour – Video Section</h2>
+            <h2 className="text-4xl font-bold text-foreground mb-6">🏭 Factory Tour</h2>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              To ensure full transparency and build trust with our clients, Omidi Machinery has set up a 
-              <strong className="text-primary"> live production unit</strong> at our headquarters, where all machines operate continuously. 
-              This allows customers and visitors to see our equipment in action, test performance, and witness first-hand 
-              how our systems function in real production environments.
+              To ensure transparency and build trust, Omidi Machinery offers a live production unit at our headquarters, allowing clients to witness our equipment in real operation.
             </p>
           </div>
-          
-          <div className="relative bg-background/80 rounded-2xl p-8 border border-border">
-            <div className="aspect-video bg-gradient-card rounded-lg flex items-center justify-center border border-border">
-              <div className="text-center">
-                <Play className="h-16 w-16 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-foreground mb-2">Factory Tour Video</h3>
-                <p className="text-muted-foreground">
-                  🔹 Video tour showing live operations, R&D centers, and testing areas
-                </p>
-              </div>
+          <div className="relative bg-background/80 rounded-2xl p-8 border border-border flex flex-col items-center">
+            <div className="aspect-video w-full max-w-3xl mx-auto rounded-lg overflow-hidden border border-border mb-6">
+              <iframe 
+                width="100%" 
+                height="100%" 
+                src="https://www.youtube.com/embed/0pxNTwjyYR4" 
+                title="Factory Tour Video"
+                frameBorder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowFullScreen
+                className="w-full h-full"
+              />
             </div>
+            <h3 className="text-xl font-semibold text-foreground mb-2">Factory Tour Video</h3>
+            <p className="text-muted-foreground">
+              🎬 Explore our production lines, R&D centers, and testing facilities in this exclusive video tour.
+            </p>
           </div>
         </div>
       </section>
@@ -217,7 +273,7 @@ const About = () => {
       {/* Mission */}
       <section className="py-16 bg-gradient-hero">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-foreground mb-8">💬 Our Mission</h2>
+          <h2 className="text-4xl font-bold text-foreground mb-8">Our Mission</h2>
           <div className="text-xl text-muted-foreground leading-relaxed space-y-6">
             <p>
               At Omidi Machinery, our goal is simple yet powerful: to walk side-by-side with our clients, 

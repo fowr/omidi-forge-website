@@ -24,12 +24,12 @@ const Hero = () => {
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground tracking-tight">
               <span className="block">Omidi</span>
               <span className="block text-3xl md:text-4xl lg:text-5xl text-primary font-medium mt-2">
-                Industrial Bakery Equipment
+                Industrial Food Machinery
               </span>
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Manufacturing world-class bakery machinery with precision engineering 
+              Manufacturing world-class food machinery with precision engineering 
               and innovative technology for commercial food production.
             </p>
           </div>
@@ -59,16 +59,16 @@ const Hero = () => {
           {/* Trust Indicators */}
           <div className="pt-8 border-t border-border/50">
             <p className="text-sm text-muted-foreground mb-4">
-              Trusted by leading bakeries worldwide
+              Trusted by the world’s leading food manufacturers
             </p>
             <div className="flex flex-wrap justify-center items-center gap-8 text-muted-foreground/60">
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-primary rounded-full"></div>
-                <span className="text-sm font-medium">25+ Years Experience</span>
+                <span className="text-sm font-medium">35+ Years Experience</span>
               </div>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-primary rounded-full"></div>
-                <span className="text-sm font-medium">500+ Installations</span>
+                <span className="text-sm font-medium">1000+ Installations</span>
               </div>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-primary rounded-full"></div>

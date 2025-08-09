@@ -115,17 +115,17 @@ const Footer = () => {
             <div className="space-y-3 text-sm">
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground">+1 (555) 123-4567</span>
+                <span className="text-muted-foreground">+98 911 143 8779</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground">info@omidi.com</span>
+                <span className="text-muted-foreground">info@omidico.com</span>
               </div>
               <div className="flex items-start space-x-2">
                 <MapPin className="h-4 w-4 text-primary mt-0.5" />
                 <span className="text-muted-foreground">
-                  Industrial District<br />
-                  Manufacturing Hub, US
+                3rd KM of Langroud<br />
+                Lahijan , OMIDI Industrial Machinery
                 </span>
               </div>
               <div className="flex space-x-3 mt-4">

@@ -34,31 +34,31 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
-  const fetchProfile = async (userId: string) => {
-    try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('user_id', userId)
-        .single();
+  // const fetchProfile = async (userId: string) => {
+  //   try {
+  //     const { data, error } = await supabase
+  //       .from('profiles')
+  //       .select('*')
+  //       .eq('user_id', userId)
+  //       .single();
 
-      if (error) {
-        console.error('Error fetching profile:', error);
-        return;
-      }
+  //     if (error) {
+  //       console.error('Error fetching profile:', error);
+  //       return;
+  //     }
 
-      setProfile(data);
-    } catch (error) {
-      console.error('Error in fetchProfile:', error);
-    }
-  };
-
-  const refreshProfile = async () => {
-    if (user) {
-      await fetchProfile(user.id);
-    }
-  };
-
+  //     setProfile(data);
+  //   } catch (error) {
+  //     console.error('Error in fetchProfile:', error);
+  //   }
+  // };
+  
+  // const refreshProfile = async () => {
+  //   if (user) {
+  //     await fetchProfile(user.id);
+  //   }
+  // };
+  const isAdmin = user?.email === '4li.heky@gmail.com';
   useEffect(() => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -67,10 +67,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(session?.user ?? null);
         
         if (session?.user) {
-          // Defer profile fetching
-          setTimeout(() => {
-            fetchProfile(session.user.id);
-          }, 0);
+          // Profile fetching is currently disabled
         } else {
           setProfile(null);
         }
@@ -85,9 +82,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(session?.user ?? null);
       
       if (session?.user) {
-        setTimeout(() => {
-          fetchProfile(session.user.id);
-        }, 0);
+        // Profile fetching is currently disabled
       }
       
       setLoading(false);
@@ -185,7 +180,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const isAdmin = profile?.role === 'admin';
+  // const isAdmin = profile?.role === 'admin';
+
+  const refreshProfile = async () => {
+    // Profile refreshing is currently disabled
+  };
 
   return (
     <AuthContext.Provider value={{
